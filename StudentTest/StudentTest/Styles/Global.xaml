@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Color x:Key="ThemeColor">#6C3483</Color>
+    <Color x:Key="TabBgColor">#F4ECF7</Color>
+    <Color x:Key="MenuColor">Gray</Color>
+    <Color x:Key="BgColor">#F0F0F0</Color>
+    <Style TargetType="Element" x:Key="BaseStyle">
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource TabBgColor}"/>
+        <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource ThemeColor}"/>
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource MenuColor}"/>
+        <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource ThemeColor}"/>
+    </Style>
+    <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}"></Style>
+    <DataTemplate x:Key="HeaderTemplate">
+        <ContentView Padding="20" HeightRequest="200" BackgroundColor="{StaticResource ThemeColor}">
+            <StackLayout Orientation="Vertical">
+                <Label x:Name="lblName" FontSize="Title" TextColor="White"/>
+                <Label Text="sylvesterchima11@outlook.com" FontSize="Subtitle" TextColor="WhiteSmoke"/>
+            </StackLayout>
+        </ContentView>
+    </DataTemplate>
+    <OnPlatform x:Key="MaterialDesignIcons"
+                        x:TypeArguments="x:String"
+                        Android="materialdesignicons-webfont.ttf#Material Design Icons"
+                        iOS="Material Design Icons" />
+</ResourceDictionary>

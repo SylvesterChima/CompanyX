@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helper="clr-namespace:StudentTest.Helpers"
+             xmlns:views="clr-namespace:StudentTest.Views"
+       xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+       xmlns:transformation="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+       Shell.FlyoutHeaderTemplate="{StaticResource HeaderTemplate}"
+             Shell.NavBarIsVisible="False"
+             FlyoutHeaderBehavior="CollapseOnScroll"
+             mc:Ignorable="d"
+             x:Class="StudentTest.AppShell">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Color x:Key="ThemeColor">#6C3483</Color>
+            <Color x:Key="TabBgColor">#F4ECF7</Color>
+            <Color x:Key="MenuColor">Gray</Color>
+            <Color x:Key="BgColor">#F0F0F0</Color>
+            <Style TargetType="Element" x:Key="BaseStyle">
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource TabBgColor}"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource ThemeColor}"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource MenuColor}"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="{StaticResource ThemeColor}"/>
+            </Style>
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}"></Style>
+            <DataTemplate x:Key="HeaderTemplate">
+                <ContentView Padding="20" HeightRequest="200" BackgroundColor="{StaticResource ThemeColor}">
+                    <StackLayout Orientation="Vertical">
+                        <forms:CachedImage Source="{Binding Picture}" HorizontalOptions="StartAndExpand" HeightRequest="70" WidthRequest="70">
+                            <forms:CachedImage.Transformations>
+                                <transformation:CircleTransformation></transformation:CircleTransformation>
+                            </forms:CachedImage.Transformations>
+                        </forms:CachedImage>
+                        <Label x:Name="lblName" Text="{Binding Name}" FontSize="Title" TextColor="White"/>
+                        <Label x:Name="lblEmail" Text="{Binding Email}" FontSize="Subtitle" TextColor="WhiteSmoke"/>
+                    </StackLayout>
+                </ContentView>
+            </DataTemplate>
+            <OnPlatform x:Key="MaterialDesignIcons"
+                        x:TypeArguments="x:String"
+                        Android="materialdesignicons-webfont.ttf#Material Design Icons"
+                        iOS="Material Design Icons" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+
+    <FlyoutItem Title="Equipment" Icon="logo.png">
+       <Tab Title="Equipment">
+            <Tab.Icon>
+                <FontImageSource Glyph="{x:Static helper:IconFont.Blender}"
+                                 FontFamily="{StaticResource MaterialDesignIcons}"
+                                 Size="18" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:EquipmentPage}" />
+        </Tab>
+         <!--<Tab Title="Students">
+            <Tab.Icon>
+                <FontImageSource Glyph="{x:Static helper:IconFont.Account}"
+                                 FontFamily="{StaticResource MaterialDesignIcons}"
+                                 Size="18" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:StudentPage}" />
+        </Tab>
+        <Tab Title="More">
+            <Tab.Icon>
+                <FontImageSource Glyph="{x:Static helper:IconFont.More}"
+                                 FontFamily="{StaticResource MaterialDesignIcons}"
+                                 Size="18" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate views:MorePage}" />
+        </Tab>-->
+    </FlyoutItem>
+    <MenuItem Text="Log Out" Clicked="MenuItem_Clicked" IconImageSource="logout.png"/>
+    
+</Shell>

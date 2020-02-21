@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:local="clr-namespace:StudentTest.ViewModels"
+             xmlns:pullToRefresh="clr-namespace:Syncfusion.SfPullToRefresh.XForms;assembly=Syncfusion.SfPullToRefresh.XForms"
+             mc:Ignorable="d"
+             Shell.BackgroundColor="#6C3483"
+             Shell.NavBarIsVisible="True"
+             Title="Equipment"
+             x:Class="StudentTest.Views.EquipmentPage">
+    <Shell.SearchHandler>
+        <SearchHandler Placeholder="search equipment" SearchBoxVisibility="Collapsible" CancelButtonColor="White" Query="{Binding Name}" />
+    </Shell.SearchHandler>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="+" Clicked="OnItemAdd">
+            <ToolbarItem.IconImageSource>
+                <OnPlatform x:TypeArguments="ImageSource">
+                    <On Platform="Android, UWP" Value="eplus.png" />
+                </OnPlatform>
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Name="ItemTemplate"  x:Key="ItemTemplate">
+                <Grid Padding="1" Margin="1" >
+                    <Frame x:Name="frame" HasShadow="True" Padding="5" Margin="1">
+                        <StackLayout>
+                            <Label Text="{Binding Name}" />
+                            <Label Text="{Binding TypeName}" />
+                            <Label Text="{Binding Quantity}" />
+                        </StackLayout>
+                    </Frame>
+                </Grid>
+            </DataTemplate>
+            
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <syncfusion:SfListView x:Name="listView" Grid.Row="0" ItemsSource="{Binding Equipments}" AllowSwiping="True" ItemTemplate="{StaticResource ItemTemplate}" AutoFitMode="Height">
+
+                <syncfusion:SfListView.LeftSwipeTemplate>
+
+                    <DataTemplate>
+                        <Grid Padding="1" Margin="1" >
+                            <Frame x:Name="frame" HasShadow="True" Padding="2" Margin="1">
+                                <Image Aspect="AspectFit" Source="eedit.png" WidthRequest="35" BackgroundColor="Green" Margin="1" HeightRequest="35" BindingContextChanged="leftImage_BindingContextChanged"/>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfListView.LeftSwipeTemplate>
+
+                <syncfusion:SfListView.RightSwipeTemplate>
+
+                    <DataTemplate>
+                        <Grid Padding="1" Margin="1" >
+                            <Frame x:Name="frame" HasShadow="True" Padding="2" Margin="1">
+                                <Image Aspect="AspectFill" Source="Delete.png" WidthRequest="35" BackgroundColor="Red" Margin="1" HeightRequest="35" BindingContextChanged="rightImage_BindingContextChanged"/>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfListView.RightSwipeTemplate>
+            </syncfusion:SfListView>
+            <ActivityIndicator 
+                Grid.Row="0"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="35"
+                HeightRequest="35"
+                IsVisible="{Binding IsLoading}" 
+                IsRunning="{Binding IsLoading}" />
+        </Grid>
+        
+        <!--<pullToRefresh:SfPullToRefresh x:Name="pullToRefresh" 
+                               ProgressBackgroundColor="#428BCA" RefreshContentHeight="30" 
+                               RefreshContentWidth="50" TransitionMode="SlideOnTop" IsRefreshing="False">
+            <pullToRefresh:SfPullToRefresh.PullableContent>
+                
+
+            </pullToRefresh:SfPullToRefresh.PullableContent>
+        </pullToRefresh:SfPullToRefresh>-->
+    </ContentPage.Content>
+</ContentPage>
